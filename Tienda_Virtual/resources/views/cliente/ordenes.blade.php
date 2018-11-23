@@ -54,7 +54,7 @@
 									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Factura número</div>
-											<div class="cart_item_text">{{$orden->factura}}</div>
+											<div name ="factura_id" class="cart_item_text">{{$orden->factura}}</div>
 										</div>
 										<div class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Fecha</div>

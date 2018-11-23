@@ -36,4 +36,35 @@ class ShoppingHistoryTest extends DuskTestCase
                     ->assertSeeIn('.button', 'Ver');
         });
     }
+
+    public function SearchOrder_ExistingOrder_OrderDetailsInView()
+    {
+        $countProductos = count(DB::select('call getProductos()'));
+        $this->browse(function (Browser $browser) use ($countProductos){
+            $browser->visit('/cliente/')
+                    ->click('#iniciarSesion')
+                    ->type('correo', $this->user)
+                    ->type('contrasena', $this->password)
+                    ->press('Iniciar Sesión')
+                    ->mouseover('#welcomeUser')
+                    ->click('#ordenes')
+                    ->assertSee('000000007');
+        });
+    }
+
+    public function SearchOrder_NonExistingOrder_MissingOrderDetailsInView()
+    {
+        $countProductos = count(DB::select('call getProductos()'));
+        $this->browse(function (Browser $browser) use ($countProductos){
+            $browser->visit('/cliente/')
+                    ->click('#iniciarSesion')
+                    ->type('correo', $this->user)
+                    ->type('contrasena', $this->password)
+                    ->press('Iniciar Sesión')
+                    ->mouseover('#welcomeUser')
+                    ->click('#ordenes')
+                    ->assertDontSee('9999999997');
+        });
+    }
+
 }
