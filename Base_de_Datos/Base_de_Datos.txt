@@ -1,0 +1,4 @@
+﻿Ir a localhost/phpmyadmin 
+Crear nueva base de datos con el nombre
+<QAStore>
+Después importar la base con el .sql
