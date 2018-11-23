@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>OneTech</title>
+<title>Tienda Virtual</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
@@ -30,14 +30,14 @@
 
 	<!-- Header -->
 	<header class="header">
-	
+
 	<div class="col-lg-2 col-sm-3 col-3 order-1 ">
 		<div class="logo_container">
-			<div class="logo"><a href="#">OneTech</a></div>
+			<div class="logo"><a href="{{URL::action('ClienteController@index')}}">Tienda Virtual</a></div>
 		</div>
 	</div>
 	<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right 	">
-		<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">	
+		<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 			<ul class="standard_dropdown main_nav_dropdown">
 				<li><a href="{{URL::action('ClienteController@index')}}">Inicio<i class="fas fa-chevron-down"></i></a></li>
 				<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
@@ -46,55 +46,54 @@
 	</div>
 
 	<!-- Top Bar -->
-	
+
 </header>
 	<!-- Banner -->
 
 
 
 	<!-- Characteristics -->
-
 	<section id="form"><!--form-->
-	<div class="container">
-		<div class="row">
-    @if(Session::has('flash_message_error'))
-        <div class="alert alert-danger alert-block">
-            <button type="button" class="close" data-dismiss="alert">X</button>
-            <strong>{!! session('flash_message_error') !!}</strong>
-        </div>
-    @endif
-    @if(Session::has('flash_message_success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">X</button>
-            <strong>{!! session('flash_message_success') !!}</strong>
-        </div>
-    @endif
-			<div class="col-sm-4 col-sm-offset-1">
-				<div class="login-form"><!--login form-->
-					<h2>Iniciar Sesión</h2>
-					<form name="formularioInicioSesion" id="formularioInicioSesion" action="{{url('/usuarios/inicioSesion')}}" method="POST"> {{csrf_field()}}
-						<input name="correo" id="correo" type="email" placeholder="Correo" />
-						<input name="contrasena" id="contrasena" type="password" placeholder="Contraseña" />
-						<button type="submit" class="btn btn-default">Iniciar Sesión</button>
-					</form>
-				</div><!--/login form-->
-			</div>
-			<div class="col-sm-2">
-			</div>
-			<div class="col-sm-4">
-				<div class="signup-form"><!--sign up form-->
-					<h2>¡Registrarte!</h2>
-					<form name="formularioRegistro" id="formularioRegistro" action="{{url('/usuarios/registrar')}}" method="POST"> {{csrf_field()}}
-						<input name="nombre" id="nombre" type="text" placeholder="Nombre"/>
-						<input name="correo" id="correo" type="email" placeholder="Correo"/>
-						<input name="contrasena" id="contrasena" type="password" placeholder="Contraseña"/>
-						<button type="submit" class="btn btn-default">Registrarse</button>
-					</form>
-				</div><!--/sign up form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-1">
+					<div class="login-form"><!--login form-->
+						@if(Session::has('flash_message_error'))
+					        <div class="alert alert-danger alert-block">
+					            <button type="button" class="close" data-dismiss="alert">X</button>
+					            <strong>{!! session('flash_message_error') !!}</strong>
+					        </div>
+					    @endif
+					    @if(Session::has('flash_message_success'))
+					        <div class="alert alert-success alert-block">
+					            <button type="button" class="close" data-dismiss="alert">X</button>
+					            <strong>{!! session('flash_message_success') !!}</strong>
+					        </div>
+					    @endif
+						<h2>Iniciar Sesión</h2>
+						<form name="formularioInicioSesion" id="formularioInicioSesion" action="{{url('/usuarios/inicioSesion')}}" method="POST"> {{csrf_field()}}
+							<input name="correo" id="correo" type="email" placeholder="Correo" />
+							<input name="contrasena" id="contrasena" type="password" placeholder="Contraseña" />
+							<button type="submit" class="btn btn-default">Iniciar Sesión</button>
+						</form>
+					</div><!--/login form-->
+				</div>
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-4">
+					<div class="login-form"><!--sign up form-->
+						<h2>¡Registrarte!</h2>
+						<form name="formularioRegistro" id="formularioRegistro" action="{{url('/usuarios/registrar')}}" method="POST"> {{csrf_field()}}
+							<input name="nombreRegistrar" id="nombreRegistrar" type="text" placeholder="Nombre"/>
+							<input name="correoRegistrar" id="correoRegistrar" type="email" placeholder="Correo"/>
+							<input name="contrasenaRegistrar" id="contrasenaRegistrar" type="password" placeholder="Contraseña"/>
+							<button type="submit" class="btn btn-default">Registrarse</button>
+						</form>
+					</div><!--/sign up form-->
+				</div>
 			</div>
 		</div>
-	</div>
-</section><!--/form-->
+	</section><!--/form-->
 
 
 	<!-- Footer -->
@@ -106,7 +105,7 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">Tienda Virtual</a></div>
 						</div>
 					</div>
 				</div>
@@ -163,13 +162,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 <!-- Header Main -->
-
-
-
-
-
-
-
-
-
-

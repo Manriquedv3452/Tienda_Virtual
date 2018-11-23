@@ -3,10 +3,10 @@
 namespace tiendaVirtual;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class Categoria extends Model
 {
-    protected $table = 'categoria';
+    protected $table = 'Categoria';
     protected $primaryKey = 'idCategoria';
     public $timestamps = false;
 
@@ -14,4 +14,8 @@ class Categoria extends Model
       'nombre',
       'descripcion',
       'condicion'];
+
+    public static function getCategorias(){
+    	return DB::select("call getCategorias()");
+    }
 }

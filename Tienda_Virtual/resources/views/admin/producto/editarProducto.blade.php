@@ -3,7 +3,7 @@
 
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="{{url('/admin/inicio')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Inicio</a> <a href="#"> Producto</a> <a href="{{url('/admin/editarProducto/'.$detallesProducto->idProducto)}}" class="current">Editar Producto</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/admin/inicio')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Inicio</a> <a href="#"> Producto</a> <a href="{{url('/admin/editarProducto/'.$detallesProducto->getID())}}" class="current">Editar Producto</a> </div>
     <h1>Editar Producto</h1>
     @if(Session::has('flash_message_error'))
         <div class="alert alert-danger alert-block">
@@ -26,44 +26,43 @@
             <h5>Formulario para Editar Producto</h5>
           </div>
           <div class="widget-content nopadding">
-            <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/editarProducto/'.$detallesProducto->idProducto)}}" name="editarProducto" id="editarProducto" novalidate="novalidate"> {{csrf_field()}}
+            <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{url('/admin/editarProducto/'.$detallesProducto->getID())}}" name="editarProducto" id="editarProducto" novalidate="novalidate"> {{csrf_field()}}
               <div class="control-group">
                 <label class="control-label">Nombre del Producto</label>
                 <div class="controls">
-                  <input type="text" name="nombre" id="nombre" value="{{$detallesProducto->nombre}}">
+                  <input type="text" name="nombre" id="nombre" value="{{$detallesProducto->getNombre()}}">
                 </div>
               </div>
               <div class="control-group">
-	            <label class="control-label">Seleccione una Categoría</label>
-	              <div class="controls">
-	              	<select name="categorias" style="width: 220px;">
-	              		<?php echo $listadoCategorias; //es lo mismo que el foreach?>
-	            	</select>
-	          	</div>
-	          </div>
+              <label class="control-label">Seleccione una Categoría</label>
+                <div class="controls">
+                  <select name="categorias" style="width: 220px;">
+                    <?php echo $listadoCategorias; //es lo mismo que el foreach?>
+                </select>
+              </div>
+            </div>
               <div class="control-group">
                 <label class="control-label">Descripción del Producto</label>
                 <div class="controls">
-                  <textarea name="descripcion" id="descripcion">{{$detallesProducto->descripcion}}</textarea>
+                  <textarea name="descripcion" id="descripcion">{{$detallesProducto->getDescripcion()}}</textarea>
                 </div>
               </div>
               <div class="control-group">
-              	<label class="control-label">Imagen del Producto</label>
-              	<div class="controls">
-                	<input type="file" name="imageInput" id="imageInput" accept="image/png, image/jpeg"/>
-                	<input type="file" name="imageInput" id="imageInput" accept="image/png, image/jpeg" />
-              	</div>
+                <label class="control-label">Imagen del Producto</label>
+                <div class="controls">
+                  <input type="file" name="imageInput" id="imageInput"/>
+                </div>
               </div>
               <div class="control-group">
                 <label class="control-label">Precio del Producto</label>
                 <div class="controls">
-                  <input type="number" name="precio" id="precio" value="{{$detallesProducto->precio}}">
+                  <input type="number" name="precio" id="precio" value="{{$detallesProducto->getPrecio()}}">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label">Stock del Producto</label>
                 <div class="controls">
-                  <input type="number" name="disponibles" id="disponibles" value="{{$detallesProducto->stock}}">
+                  <input type="number" name="disponibles" id="disponibles" value="{{$detallesProducto->getStock()}}">
                 </div>
               </div>
               <div class="form-actions">

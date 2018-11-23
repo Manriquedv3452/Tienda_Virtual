@@ -272,10 +272,12 @@ $.extend($.validator, {
 	date: "Por favor, escribe una fecha válida.",
 	dateISO: "Por favor, escribe una fecha (ISO) válida.",
 	number: "Por favor, escribe un número válido.",
+	accept: "Por favor, ingrese un valor con un tipo mimet válido.",
 	digits: "Por favor, escribe sólo dígitos.",
 	creditcard: "Por favor, escribe un número de tarjeta válido.",
 	equalTo: "Por favor, escribe el mismo valor de nuevo.",
 	extension: "Por favor, escribe un valor con una extensión aceptada.",
+	lettersonly: "Por favor, escriba solo letras.",
 	maxlength: $.validator.format( "Por favor, no escribas más de {0} caracteres." ),
 	minlength: $.validator.format( "Por favor, no escribas menos de {0} caracteres." ),
 	rangelength: $.validator.format( "Por favor, escribe un valor entre {0} y {1} caracteres." ),
@@ -1041,6 +1043,10 @@ $.extend($.validator, {
 			return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
 		},
 
+		lettersonly: function( value, element ) {
+			return this.optional( element ) || /^[a-z]+$/i.test( value );
+		},
+
 		// http://docs.jquery.com/Plugins/Validation/Methods/dateISO
 		dateISO: function(value, element) {
 			return this.optional(element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(value);
@@ -1084,10 +1090,44 @@ $.extend($.validator, {
 			return (nCheck % 10) == 0;
 		},
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/accept
-		accept: function(value, element, param) {
-			param = typeof param == "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
-			return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
+		accept: function( value, element, param ) {
+			// Split mime on commas in case we have multiple types we can accept
+			var typeParam = typeof param === "string" ? param.replace( /\s/g, "" ) : "image/*",
+				optionalValue = this.optional( element ),
+				i, file, regex;
+
+			// Element is optional
+			if ( optionalValue ) {
+				return optionalValue;
+			}
+
+			if ( $( element ).attr( "type" ) === "file" ) {
+
+				// Escape string to be used in the regex
+				// see: https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+				// Escape also "/*" as "/.*" as a wildcard
+				typeParam = typeParam
+						.replace( /[\-\[\]\/\{\}\(\)\+\?\.\\\^\$\|]/g, "\\$&" )
+						.replace( /,/g, "|" )
+						.replace( /\/\*/g, "/.*" );
+
+				// Check if the element has a FileList before checking each file
+				if ( element.files && element.files.length ) {
+					regex = new RegExp( ".?(" + typeParam + ")$", "i" );
+					for ( i = 0; i < element.files.length; i++ ) {
+						file = element.files[ i ];
+
+						// Grab the mimetype from the loaded file, verify it matches
+						if ( !file.type.match( regex ) ) {
+							return false;
+						}
+					}
+				}
+			}
+
+			// Either return true because we've validated each file, or because the
+			// browser does not support element.files and the FileList feature
+			return true;
 		},
 
 		// http://docs.jquery.com/Plugins/Validation/Methods/equalTo

@@ -1,9 +1,7 @@
 /* JS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Vars and Inits
 2. Set Header
 3. Init Custom Dropdown
@@ -14,8 +12,6 @@
 8. Init Color
 9. Init Favorites
 10. Init Image
-
-
 ******************************/
 
 $(document).ready(function()
@@ -23,9 +19,7 @@ $(document).ready(function()
 	"use strict";
 
 	/* 
-
 	1. Vars and Inits
-
 	*/
 
 	var menuActive = false;
@@ -41,16 +35,17 @@ $(document).ready(function()
 	initColor();
 	initFavs();
 	initImage();
+	validar();
 
 	$(window).on('resize', function()
 	{
 		setHeader();
 	});
 
+
+
 	/* 
-
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -79,9 +74,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	3. Init Custom Dropdown
-
 	*/
 
 	function initCustomDropdown()
@@ -117,7 +110,7 @@ $(document).ready(function()
 
 		});
 
-		$('.custom_list a').on('click', function (ev)
+		$('.custom_list select').on('click', function (ev)
 		{
 			ev.preventDefault();
 			var index = $(this).parent().index();
@@ -137,16 +130,15 @@ $(document).ready(function()
 
 		$('select').on('change', function (e)
 		{
-			placeholder.text(this.value);
+			//alert(this.options[this.selectedIndex].text);
+			placeholder.text(this.options[this.selectedIndex].text);
 
-			$(this).animate({width: placeholder.width() + 'px' });
+			//$(this).animate({width: placeholder.width() + 'px' });
 		});
 	}
 
 	/* 
-
 	4. Init Page Menu
-
 	*/
 
 	function initPageMenu()
@@ -220,9 +212,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	5. Init Recently Viewed Slider
-
 	*/
 
 	function initViewedSlider()
@@ -270,9 +260,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	6. Init Brands Slider
-
 	*/
 
 	function initBrandsSlider()
@@ -314,9 +302,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	7. Init Quantity
-
 	*/
 
 	function initQuantity()
@@ -334,14 +320,26 @@ $(document).ready(function()
 			incButton.on('click', function()
 			{
 				originalVal = input.val();
-				endVal = parseFloat(originalVal) + 1;
-				input.val(endVal);
+				if(!originalVal || originalVal == 'NaN'){
+					originalVal = 0;
+					endVal = parseFloat(originalVal);
+					input.val(endVal);
+				}
+				if(originalVal < 5){
+					endVal = parseFloat(originalVal) + 1;
+					input.val(endVal);
+				}
 			});
 
 			decButton.on('click', function()
 			{
 				originalVal = input.val();
-				if(originalVal > 0)
+				if(!originalVal || originalVal == 'NaN'){
+					originalVal = 1;
+					endVal = parseFloat(originalVal);
+					input.val(endVal);
+				}
+				if(originalVal > 1)
 				{
 					endVal = parseFloat(originalVal) - 1;
 					input.val(endVal);
@@ -351,9 +349,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	8. Init Color
-
 	*/
 
 	function initColor()
@@ -375,9 +371,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	9. Init Favorites
-
 	*/
 
 	function initFavs()
@@ -391,9 +385,7 @@ $(document).ready(function()
 	}
 
 	/* 
-
 	10. Init Image
-
 	*/
 
 	function initImage()
@@ -411,4 +403,70 @@ $(document).ready(function()
 			});
 		});
 	}
+
+
 });
+
+function validar(){
+	var cal = $('#quantity_input').val();
+	var text = document.getElementById("comentario").value;
+	var retorno = false;
+	var msj = "* Por favor, ingrese la calificación";
+	if(text || cal){
+		if(text.length > 300){
+			alert("El texto es muy largo, por favor, redúscalo");
+		}else if(!cal){
+			document.getElementById("error").innerHTML = msj;
+		}else{
+			retorno = true;
+		}
+	}
+	return retorno;
+}
+
+$("a div").click(function(e){
+	e.preventDefault();
+	//var padre = $("a div").parent();
+    //$("a div").parent().append("<p>Esto es un parrafo.</p>");
+});
+
+function mostrar(e){
+	var formulario = '<form id="respuesta" class="answer" onsubmit="return respuesta()" ' + 
+	                    'action="http://localhost:8000/cliente/responder/' + e + '"' +' >'+
+						'<div class="form-group row">'+
+						'<div class="col-sm-6">'+
+						'<textarea type="text" class="form-control" id="respuestaText">'+
+						'</textarea>'+
+						'<p id="alerta" class="demoFont"></p>'+
+						'</div>'+
+						'</div>'+
+						'<button class="btn btn-primary">Responder</button>'+
+						'</form>';
+	var x = document.getElementById("" + e);
+	var y = document.getElementById("respuesta" + e);
+	var padre = $('#link'+e).parent();
+	if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+        y.style.display = "block";
+    }
+    //alert(formulario);
+    //padre.append(formulario);
+}
+
+function respuesta(){
+	var text = document.getElementById("respuestaText").value;
+	var retorno = true;
+	var msj = "* No deje una respuesta en blanco";
+	if(text){
+		if(text.length > 300){
+			alert("El texto es muy largo, por favor, redúscalo");
+			retorno = false;
+		}
+	}else{
+		document.getElementById("alerta").innerHTML = msj;
+		retorno = false;
+	}
+	return retorno;
+}

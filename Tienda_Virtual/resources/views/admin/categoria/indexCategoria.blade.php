@@ -40,12 +40,12 @@
               <tbody>
               	@foreach($categorias as $cat)
                 <tr class="gradeX">
-                  <td>{{$cat->idCategoria}}</td>
-                  <td>{{$cat->nombre}}</td>
-                  <td>{{$cat->descripcion}}</td>
-                  <td>{{$cat->condicion}}</td>
-                  <td class="center"><a href="{{url('/admin/editarCategoria/'.$cat->idCategoria)}}" class="btn btn-primary btn-mini">Editar</a>
-                    <a href="{{url('/admin/eliminarCategoria/'.$cat->idCategoria)}}" class="btn btn-danger btn-mini elimiarCategoria">Eliminar</a></td>
+                  <td class="idCategoria">{{$cat->idCategoria}}</td>
+                  <td class="nombreCategoria">{{$cat->nombre}}</td>
+                  <td class="descripcionCategoria">{{$cat->descripcion}}</td>
+                  <td class="condicionCategoria">{{$cat->condicion}}</td>
+                  <td class="center"><a href="{{url('/admin/editarCategoria/'.$cat->idCategoria)}}" class="btn btn-primary btn-mini" id="edit_{{$cat->nombre}}">Editar</a>
+                    <a href="{{url('/admin/eliminarCategoria/'.$cat->idCategoria)}}" class="btn btn-danger btn-mini elimiarCategoria" id="eliminar_{{$cat->idCategoria}}">Eliminar</a></td>
                 </tr>
                 @endforeach
               </tbody>

@@ -677,14 +677,14 @@ section
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
-.custom_list li
+.custom_list option
 {
 	height: 35px;
 	padding-left: 15px;
 	padding-right: 15px;
 	background: #FFFFFF;
 }
-.custom_list li a
+.custom_list option
 {
 	display: block;
 	color: #a3a3a3;
@@ -696,7 +696,7 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.custom_list li a:hover
+.custom_list option:hover
 {
 	color: #0e8ce4;
 }
@@ -718,7 +718,7 @@ select:hover
 {
 	cursor: pointer;
 }
-select option
+option
 {
 	border: 0;
 	border-bottom: 1px solid #555;
@@ -1957,7 +1957,7 @@ select option
 .product_mark
 {
 	display: inline-block;
-	width: 36px;
+	width: 50px;
 	height: 36px;
 	border-radius: 50%;
 	color: #FFFFFF;
@@ -3517,6 +3517,7 @@ select option
 {
 	padding-top: 52px;
 	padding-bottom: 40px;
+	background: #e0f4f9;
 }
 .footer .logo_container
 {
@@ -3656,4 +3657,11 @@ select option
 .logos_list li:last-child
 {
 	margin-right: 0px;
+}
+
+.fa-star{
+  color: #f5e211;
+}
+.fa-star-half{
+  color: #f5e211;
 }

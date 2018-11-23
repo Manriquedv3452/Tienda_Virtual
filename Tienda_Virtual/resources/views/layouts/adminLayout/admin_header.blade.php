@@ -21,7 +21,7 @@
         <li> <a href="{{url('/admin/crearAdmin')}}"><i class="icon-user"></i> Crear Administrador</a></li>
       </ul>
     </li>
-    <li class=""><a title="" href="{{url('/logout')}}"><i class="icon icon-share-alt"></i> <span class="text">Cerrar Sesión</span></a></li>
+    <li class=""><a title="" href="{{url('/logout')}}" id="logOut"><i class="icon icon-share-alt"></i> <span class="text">Cerrar Sesión</span></a></li>
   </ul>
 </div>
 <!--close-top-Header-menu-->

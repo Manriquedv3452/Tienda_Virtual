@@ -1315,6 +1315,14 @@ select option
 	margin-left: 26px;
 	line-height: 60px;
 }
+.pay_with
+{
+	display: inline-block;
+	font-size: 18px;
+	font-weight: 500;
+	margin-left: 26px;
+	line-height: 40px;
+}
 .cart_buttons
 {
 	margin-top: 60px;

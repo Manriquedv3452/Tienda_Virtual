@@ -21,7 +21,22 @@
 <div class="shop">
 	<div class="container">
 		<div class="row">
+			<div class="col-lg-3">
 
+					<!-- Shop Sidebar -->
+					<div class="shop_sidebar">
+						<div class="sidebar_section filter_by_section">
+							<div class="sidebar_title">Filtrar por</div>
+							<div class="sidebar_subtitle">Precio</div>
+							<div class="filter_price">
+								<div id="slider-range" class="slider_range"></div>
+								<p>Rango: </p>
+								<p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
+							</div>
+						</div>
+
+					</div>
+			</div>
 
 			<div class="col-lg-9">
 				
@@ -30,20 +45,20 @@
 				<div class="shop_content">
 					<div class="shop_bar clearfix">
 						<div class="shop_product_count"><span>{{sizeof($productos)}}</span> productos encontrados</div>
-						<!-- Shop Content 
 						<div class="shop_sorting">
-							<span>Sort by:</span>
-							<ul>
-								<li>
-									<span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
-									<ul>
-										<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-										<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-										<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
-									</ul>
-								</li>
-							</ul>
-						</div>-->
+								<span>Ordenar por:</span>
+								<ul>
+									<li>
+										<span class="sorting_text" id="sorter">Sin orden<i class="fas fa-chevron-down"></span></i>
+										<ul>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "rated" }' id="byRate">Mejor Calificados</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "rated2" }' id="byRate">Peor Calificados</li>
+											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>Precio</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>Sin orden</li>
+										</ul>
+									</li>
+								</ul>
+						</div>
 					</div>
 
 					<div class="product_grid">
@@ -51,21 +66,31 @@
 
 						<!-- Product Item -->
 						@foreach($productos as $prod)
-						<div class="product_item is_new">
+						<div class="product_item discount">
+							<a href="{{URL::action('ProductoController@infoProducto',$prod->idProducto)}}" tabindex="{{$prod->idProducto}}">
 							<div class="product_border"></div>
-							<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{asset('images/productos/'.$prod->imagen)}}" alt=""></div>
+							<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{asset('images/productos/'.$prod->imagen)}}" alt="" width="170" height="170"></div>
 							<div class="product_content">
-								<div class="product_price">${{$prod->precio}}</div>
-								<div class="product_name"><div><a href="{{URL::action('ClienteController@infoProducto',$prod->idProducto)}}" tabindex="0">{{$prod->nombre}}</a></div></div>
+								<div class="product_price" id="product_price_{{$prod->idProducto}}" name="product_price">${{$prod->precio}}</div>
+								<div class="product_name"><div>{{$prod->nombre}}</div></div>
+								<div class="product_rank">{{$prod->promedio}}</div>
 							</div>
-							<div class="product_fav"><i class="fas fa-heart"></i></div>
+							</a>
+							@if($prod->stock == 0)
+							<ul class="product_marks">
+								<li class="product_mark product_discount">Agotado</li>
+							</ul>
+							@endif
 							
 						</div>
-						@endforeach						
+						@endforeach							
 
 					</div>
 
 					<!-- Shop Page Navigation -->
+					<div class="shop_page_nav d-flex flex-row">
+						{{$productos->render()}}
+					</div>
 				</div>
 
 			</div>

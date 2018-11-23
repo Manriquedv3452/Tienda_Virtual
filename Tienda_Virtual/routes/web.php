@@ -10,7 +10,7 @@
 |
 */
 Route::get('/', function () {
-    return view('cliente/index');
+    return redirect('/cliente/');
 });
 
 //Admin - Inicio y Ciere de Sesión
@@ -35,14 +35,21 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/admin/indexProducto', 'ProductoController@indexProducto');
 	Route::match(['get','post'], '/admin/editarProducto/{id}', 'ProductoController@editarProducto');
 	Route::match(['get','post'], '/admin/eliminarProducto/{id}', 'ProductoController@eliminarProducto');
+	Route::match(['get','post'], '/admin/habilitarProducto/{id}', 'ProductoController@habilitarProducto');
+  
 });
 // FrontEnd
-Route::get('cliente','ClienteController@index');
-Route::get('cliente/categories/{id}','ClienteController@filtrar');
-Route::get('cliente/results','ClienteController@search');
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('cliente/product/{id}','ClienteController@infoProducto');
+Route::get('cliente','ClienteController@index')->name('home');
+Route::get('cliente/categories/{id}','ProductoController@filtrar');
+Route::get('cliente/results','ProductoController@search');
+Route::get('cliente/product/{id}','ProductoController@infoProducto');//<---------------
+try{
+	Route::post('cliente/comentar/{id}','ProductoController@comentarProducto');
+	Route::get('cliente/responder/{id}','ProductoController@responderComentario');
+}catch (\Exception $e){
+	Route::get('cliente/comentar/{id}','ClienteController@index');
+	Route::get('cliente/responder/{id}','ClienteController@index');
+}
 
 Route::group(['middleware'=>['frontLogin']],function(){
   Route::match(['get','post'],'cuenta','UsuarioController@cuenta');
@@ -61,5 +68,16 @@ Route::get('/carrito/agregar/{id}','CarritoController@agregarItem');
 Route::get('/cliente/cart','CarritoController@verCarrito');
 Route::get('/carrito/eliminar','CarritoController@eliminarCarrito');
 Route::get('/carrito/quitar/{id}','CarritoController@quitarDelCarrito');
-Route::get('/carrito/pagar','CarritoController@pagar');
 
+Route::get('/carrito/verificar','CarritoController@verificar');
+Route::get('/carrito/orden','CarritoController@pagar');
+
+Route::get('/cliente/metodos','ClienteController@metodosPago');
+Route::post('/cliente/nuevoMetodo','ClienteController@agregarMetodo');
+Route::get('/cliente/vermetodos','ClienteController@verMetodos');
+
+Route::post('/cliente/inicioSesion', 'ClienteController@inicioSesion');
+Route::post('/carrito/pagar', 'CarritoController@pagar');
+
+Route::get('/cliente/ordenes','OrdenController@verOrdenes');
+Route::get('/cliente/orden/{id}','OrdenController@verOrden');

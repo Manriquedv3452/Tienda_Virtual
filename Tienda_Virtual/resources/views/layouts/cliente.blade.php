@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>OneTech</title>
+<title>Tienda Virtual</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
@@ -30,6 +30,9 @@
 	<!-- Characteristics -->
 
 	@yield('contenidoCliente')
+	@if(Session::has('success_msg'))
+		@include('cliente.popups.thanks')
+	@endif
 
 
 	<!-- Footer -->
@@ -41,7 +44,7 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">Tienda Virtual</a></div>
 						</div>
 					</div>
 				</div>
@@ -51,7 +54,7 @@
 						<div class="footer_title">Servicio al cliente</div>
 						<ul class="footer_list">
 							<li><a href="#">Mi cuenta</a></li>
-							<li><a href="#">Mis órdenes</a></li>
+							<li><a href="#" id="ordenes">Mis órdenes</a></li>
 						</ul>
 					</div>
 				</div>
@@ -80,8 +83,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{asset('styles/bootstrap4/popper.js')}}"></script>
-<script src="{{asset('styles/bootstrap4/bootstrap.min.js')}}"></script>
+<script src="{{asset('css/bootstrap4/popper.js')}}"></script>
+<script src="{{asset('css/bootstrap4/bootstrap.min.js')}}"></script>
 <script src="{{asset('plugins/greensock/TweenMax.min.js')}}"></script>
 <script src="{{asset('plugins/greensock/TimelineMax.min.js')}}"></script>
 <script src="{{asset('plugins/scrollmagic/ScrollMagic.min.js')}}"></script>
@@ -95,7 +98,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.js')}}"></script>
 <script src="{{asset('plugins/parallax-js-master/parallax.min.js')}}"></script>
 <script src="{{asset('js/shop_custom.js')}}"></script>
-
+@if(Session::has('success_msg'))
+<script type="text/javascript">
+	$(function() {
+		$("#popupThanks").modal('show');
+	});
+</script>
+@endif
 
 </body>
 

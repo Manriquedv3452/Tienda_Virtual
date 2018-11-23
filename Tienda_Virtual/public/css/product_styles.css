@@ -2,9 +2,7 @@
 /* CSS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Fonts
 2. Body and some general stuff
 3. Header
@@ -18,8 +16,6 @@
 7. Brands
 8. Newsletter
 9. Footer
-
-
 ******************************/
 
 /***********
@@ -696,14 +692,14 @@ section
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
-.custom_list li
+.custom_list option
 {
 	height: 35px;
 	padding-left: 15px;
 	padding-right: 15px;
 	background: #FFFFFF;
 }
-.custom_list li a
+.custom_list option
 {
 	display: block;
 	color: #a3a3a3;
@@ -715,7 +711,7 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-.custom_list li a:hover
+.custom_list option:hover
 {
 	color: #0e8ce4;
 }
@@ -737,7 +733,7 @@ select:hover
 {
 	cursor: pointer;
 }
-select option
+option
 {
 	border: 0;
 	border-bottom: 1px solid #555;
@@ -2113,4 +2109,191 @@ select option
 .logos_list li:last-child
 {
 	margin-right: 0px;
+}
+
+
+
+.comentarios{
+	display:-ms-flexbox;
+	display:flex;
+	-ms-flex-align:center;
+	align-items:center;
+	-ms-flex-pack:end;
+	justify-content:initial;
+	padding:15px;
+	border-top:1px solid #e9ecef
+}
+
+
+
+.opcionales{
+	padding:15px;
+}
+
+.demoFont {
+	font-family: 'Rubik', sans-serif;
+	font-size: 15px;
+	word-spacing: 2px;
+	color: #FF2222;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+
+
+
+
+
+/*border-top: 1px solid #1C6EA4;
+	border-bottom: 1px solid #1C6EA4;*/
+
+
+div.blueTable {
+  font-family: 'Rubik', sans-serif;
+  background-color: #FFFFFF;
+  width: 75%;
+  text-align: left;
+  border-collapse: collapse;
+  border-top: 1px solid #1C6EA4;
+}
+.divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
+
+  padding: 3px 2px;
+}
+
+.divTable.blueTable .divTableRow:nth-child(even) {
+  border-bottom: 1px solid #1C6EA4;
+}
+.divTable.blueTable .divTableCell:nth-child(even) {
+  background: #D0E4F5;
+}
+.blueTable .tableFootStyle {
+  font-size: 14px;
+}
+.blueTable .tableFootStyle .links {
+	 text-align: right;
+}
+.blueTable .tableFootStyle .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.blueTable.outerTableFooter {
+  border-top: none;
+}
+.blueTable.outerTableFooter .tableFootStyle {
+  padding: 3px 5px; 
+}
+/* DivTable.com */
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableFoot { display: table-footer-group;}
+.divTableBody { display: table-row-group;}
+
+.usuario{
+	font-family: 'Rubik', sans-serif;
+	font-size: 20px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
+	color: #3256C3;
+	font-weight: normal;
+	text-decoration: none;
+	font-style: italic;
+	font-variant: normal;
+	text-transform: none;
+}
+
+.coment{
+	font-family: 'Rubik', sans-serif;
+	font-size: 15px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
+	color: #000000;
+	font-weight: normal;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+
+.fa-star{
+  color: #f5e211;
+}
+.fa-star-half{
+  color: #f5e211;
+}
+
+.respuestas
+{
+	font-family: 'Rubik', sans-serif;
+	font-size: 14px;
+	line-height: 1.7;
+	font-weight: 400;
+	color: #828282;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	padding: 0px 10px;
+}
+
+div.response {
+  width: 500px;
+  text-align: left;
+  border-collapse: collapse;
+}
+.divTable.response .divTableBody .divTableCell {
+  font-size: 14px;
+}
+.divTable.response .divTableRow:nth-child(even) {
+  background: #FFFFFF;
+}
+.response .tableFootStyle {
+  font-size: 14px;
+}
+.response .tableFootStyle .links {
+	 text-align: right;
+}
+.response .tableFootStyle .links a{
+  display: inline-block;
+  background: #FFFFFF;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.response.outerTableFooter .tableFootStyle {
+  padding: 3px 5px; 
+}
+
+.nombre{
+	color: #3256C3;
+}
+
+.respuesta{
+	font-family: 'Rubik', sans-serif;
+	font-size: 14px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
+	color: #000000;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+#respuestaText{
+	padding: 0px 5px;
+}
+
+.answer{
+	padding: 0px 15px;
 }

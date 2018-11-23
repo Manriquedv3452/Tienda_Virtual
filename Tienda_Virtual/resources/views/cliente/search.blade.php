@@ -1,5 +1,10 @@
 
 <!-- Header Main -->
+<script>
+	function nuevoMetodo() {
+	open('/cliente/metodos','','top=100,left=300,width=500,height=400') ;
+	}
+</script>
 <div class="top_bar">
 	<div class="container">
 		<div class="row">
@@ -16,12 +21,27 @@
 					<div class="top_bar_user">
 						@if($usuario == 'NULL')
 							<div class="user_icon"><img src="{{asset('images/user.svg')}}" alt=""></div>
-							<div><a href="#">Registrarse</a></div>
-							<div><a href="{{url('/usuarios/inicioSesionRegistro')}}">Iniciar Sesión</a></div>
+							<div><a href="{{url('/usuarios/inicioSesionRegistro')}}" id="register">Registrarse</a></div>
+							<div><a href="{{url('/usuarios/inicioSesionRegistro')}}" id="iniciarSesion">Iniciar Sesión</a></div>
 						@else
 							<div class="user_icon"><img src="{{asset('images/user.svg')}}" alt=""></div>
-							<div><a href="#">Bienvenido {{$usuario->name}}</a></div>
-							<div><a href="{{URL::action('UsuarioController@cerrarSesion')}}">Cerrar Sesión</a></div>
+							<div class="top_bar_menu">
+								<ul class="standard_dropdown top_bar_dropdown">
+									<li>
+										<a href="#" id="welcomeUser">Bienvenido {{$usuario->name}}<i class="fas fa-chevron-down"></i></a>
+										<ul>
+											<li><a href="{{url('/cliente/ordenes')}}" id="ordenes">Mis órdenes</a></li>
+											<li><a href="">Métodos de pago</a>
+												<ul>
+													<li><a href="/cliente/vermetodos">Ver métodos<i class="fas fa-chevron-right"></i></a></li>
+													<li><a href="#" onclick="nuevoMetodo()">Agregar<i class="fas fa-chevron-right"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div><a href="{{URL::action('UsuarioController@cerrarSesion')}}" id="cerrarSesion">Cerrar Sesión</a></div>
 						@endif
 					</div>
 				</div>
@@ -36,7 +56,7 @@
 			<!-- Logo -->
 			<div class="col-lg-2 col-sm-3 col-3 order-1">
 				<div class="logo_container">
-					<div class="logo"><a href="#">OneTech</a></div>
+					<div class="logo"><a href="{{URL::action('ClienteController@index')}}">Tienda Virtual</a></div>
 				</div>
 			</div>
 
@@ -45,13 +65,22 @@
 				<div class="header_search">
 					<div class="header_search_content">
 						<div class="header_search_form_container">
-						{!! Form::open(array('action' => 'ClienteController@search', 'method' =>'GET', 'autocomplete' => 'off','role' => 'search','class' => 'header_search_form clearfix'))!!}
-								<input type="search" name="buscador" required="required" class="header_search_input" placeholder="Buscar..." >
-								<div class="custom_dropdown" hidden="false">
+						{!! Form::open(array('url' => 'cliente/results', 'method' =>'GET', 'autocomplete' => 'off','role' => 'search','class' => 'header_search_form clearfix'))!!}
+								<input type="search" name="buscador" required="required" class="header_search_input" placeholder="Buscar...">
+								<div class="custom_dropdown">
 									<div class="custom_dropdown_list">
 										<span class="custom_dropdown_placeholder clc">Todas las categorías</span>
 										<i class="fas fa-chevron-down"></i>
-										<ul class="custom_list clc"></ul>
+										<select name="catFiltro" id="catFiltro" class="custom_list clc form-control">
+											<option value="0" class="clc" label="Todas las categorías">Todas las categorías</option>
+											@foreach($categorias as $cat)
+											@if($cat->condicion != 0)
+											<option value="{{$cat->idCategoria}}" class="clc" label="{{$cat->nombre}}">
+												{{$cat->nombre}}
+											</option>
+											@endif
+											@endforeach
+										</select>
 									</div>
 								</div>
 								<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{asset('images/search.png')}}" alt=""></button>
@@ -68,11 +97,13 @@
 					<div class="cart">
 						<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 							<div class="cart_icon">
-								<img src="{{asset('images/cart.png')}}" alt="">
+								<a href="{{url('/cliente/cart')}}">
+									<img src="{{asset('images/cart.png')}}" alt="">
+								</a>
 								<div class="cart_count"><span>{{$carritoLen}}</span></div>
 							</div>
 							<div class="cart_content">
-								<div class="cart_text"><a href="{{url('/cliente/cart')}}">Carrito</a></div>
+								<div class="cart_text"><a href="{{url('/cliente/cart')}}" id="carrito">Carrito</a></div>
 								<div class="cart_price">${{$total}}</div>
 							</div>
 						</div>
@@ -103,7 +134,7 @@
 						<ul class="cat_menu">
 						@foreach($categorias as $cat)
 							@if($cat->condicion != 0)
-								<li><a href="{{URL::action('ClienteController@filtrar',$cat->idCategoria)}}">{{$cat->nombre}}<i class="fas fa-chevron-right ml-auto"></i></a></li>
+								<li><a href="{{URL::action('ProductoController@filtrar',$cat->idCategoria)}}" id="categoria_{{$cat->idCategoria}}">{{$cat->nombre}}<i class="fas fa-chevron-right ml-auto"></i></a></li>
 							@endif
 						@endforeach
 						</ul>

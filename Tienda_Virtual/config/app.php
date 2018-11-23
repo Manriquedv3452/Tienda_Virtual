@@ -156,7 +156,7 @@ return [
          */
         tiendaVirtual\Providers\AppServiceProvider::class,
         tiendaVirtual\Providers\AuthServiceProvider::class,
-        // tiendaVirtual\Providers\BroadcastServiceProvider::class,
+        tiendaVirtual\Providers\BroadcastServiceProvider::class,
         tiendaVirtual\Providers\EventServiceProvider::class,
         tiendaVirtual\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,

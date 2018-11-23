@@ -32,7 +32,6 @@ $(document).ready(function()
 
 	setHeader();
 
-	initCustomDropdown();
 	initPageMenu();
 	initViewedSlider();
 	initBrandsSlider();
@@ -76,70 +75,6 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
-	3. Init Custom Dropdown
-
-	*/
-
-	function initCustomDropdown()
-	{
-		if($('.custom_dropdown_placeholder').length && $('.custom_list').length)
-		{
-			var placeholder = $('.custom_dropdown_placeholder');
-			var list = $('.custom_list');
-		}
-
-		placeholder.on('click', function (ev)
-		{
-			if(list.hasClass('active'))
-			{
-				list.removeClass('active');
-			}
-			else
-			{
-				list.addClass('active');
-			}
-
-			$(document).one('click', function closeForm(e)
-			{
-				if($(e.target).hasClass('clc'))
-				{
-					$(document).one('click', closeForm);
-				}
-				else
-				{
-					list.removeClass('active');
-				}
-			});
-
-		});
-
-		$('.custom_list a').on('click', function (ev)
-		{
-			ev.preventDefault();
-			var index = $(this).parent().index();
-
-			placeholder.text( $(this).text() ).css('opacity', '1');
-
-			if(list.hasClass('active'))
-			{
-				list.removeClass('active');
-			}
-			else
-			{
-				list.addClass('active');
-			}
-		});
-
-
-		$('select').on('change', function (e)
-		{
-			placeholder.text(this.value);
-
-			$(this).animate({width: placeholder.width() + 'px' });
-		});
-	}
 
 	/* 
 
@@ -329,7 +264,15 @@ $(document).ready(function()
             		var priceEle = $(itemElement).find('.product_price').text().replace( '$', '' );
             		return parseFloat(priceEle);
             	},
-            	name: '.product_name div a'
+            	name: '.product_name div a',
+            	rated: function(itemElement){
+            		var rankEle = $(itemElement).find('.product_rank').text();
+            		return -parseFloat(rankEle);
+				},
+				rated2: function(itemElement){
+            		var rankEle = $(itemElement).find('.product_rank').text();
+            		return parseFloat(rankEle);
+            	}
             },
             animationOptions: {
                 duration: 750,
@@ -375,7 +318,7 @@ $(document).ready(function()
 			});
 				
 			$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-			$('.ui-slider-handle').on('mouseup', function()
+			$('.ui-slider-handle').on('click', function()
 			{
 				$('.product_grid').isotope({
 		            filter: function()

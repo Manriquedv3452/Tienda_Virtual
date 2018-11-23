@@ -25,7 +25,7 @@ $(document).ready(function(){
 	$('select').select2();
 
 	// Validacion de agregar Categoría
-	$("#agregarCategoria").validate({
+	$("#agregarCategorias").validate({
 		rules:{
 			nombre:{
 				required: true,
@@ -88,7 +88,8 @@ $(document).ready(function(){
 				maxlength: 200
 			},
 			imageInput:{
-				required: true
+				required: true,
+				accept: "image/*"
 			},
 			precio:{
 				required: true,
@@ -128,7 +129,8 @@ $(document).ready(function(){
 				maxlength: 200
 			},
 			imageInput:{
-				required: true
+				required: true,
+				accept: "image/*"
 			},
 			precio:{
 				required: true,
@@ -150,38 +152,6 @@ $(document).ready(function(){
 		},
 		unhighlight: function(element, errorClass, validClass) {
 			$(element).parents('.control-group').removeClass('error');
-		}
-	});
-
-	// Confirmar Validacion de contraseña
-	$("#crearAdmin").validate({
-		rules:{
-			nombre:{
-				required: true,
-				minlength: 3
-			},
-			correo:{
-				required: true,
-				email: true
-			},
-			ctr_nueva:{
-				required: true,
-				rangelength: [8,20]
-			},
-			ctr_confirmar:{
-				required:true,
-				rangelength: [8,20],
-				equalTo:"#ctr_nueva"
-			}
-		},
-		errorClass: "help-inline",
-		errorElement: "span",
-		highlight:function(element, errorClass, validClass) {
-			$(element).parents('.control-group').addClass('error');
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			$(element).parents('.control-group').removeClass('error');
-			$(element).parents('.control-group').addClass('success');
 		}
 	});
 
@@ -256,9 +226,47 @@ $(document).ready(function(){
 
 	// Ventana emergente de eliminación de Producto
 	$(".delProd").click(function(){
-		if(confirm('¿Está seguro que desea eliminar este producto?')){
+		if(confirm('¿Está seguro que desea inhabilitar este producto?')){
 			return true;
 		}
 		return false;
 	});
 });
+
+
+function validar(){
+	var bandera = true;
+	var nombre = $('#nombre').val();
+	var categorias = $('#categorias').val();
+	var descripcion = $('#descripcion').val();
+	var imagen = $('#imageInput').val();
+	var precio = $('#precio').val();
+	var disponibles = $('#disponibles').val();
+	if(!nombre || nombre.length < 3 || nombre.length > 45){
+		bandera = false;
+		document.getElementById("error1").innerHTML = "*No hay nombre de producto o se sale del rango";
+	}
+	if(!categorias){
+		bandera = false;
+		document.getElementById("error2").innerHTML = "*No se ha elegido una categoría";
+	}
+	if(!descripcion || descripcion.length > 300){
+		bandera = false;
+		document.getElementById("error3").innerHTML = "*No se ha ingresado una descripcion o es muy larga";
+	}
+	if(!imagen){
+		bandera = false;
+		document.getElementById("error4").innerHTML = "*No se ha ingresado una imagen para el producto";
+	}
+	if(!precio || isNaN(precio) || precio.length < 1 || precio.length > 45){
+		bandera = false;
+		document.getElementById("error5").innerHTML = "*No es un precio válido";
+	}
+	if(!disponibles || isNaN(disponibles) || Number(disponibles) < 0 || Number(disponibles) > 100){
+		bandera = false;
+		document.getElementById("error6").innerHTML = "*No ingresó un valor válido";
+	}
+
+
+	return bandera;
+}

@@ -50,8 +50,12 @@
                   <td>{{$prod->precio}}</td>
                   <td>{{$prod->stock}}</td>
 									<td>{{$prod->estado}}</td>
-                  <td class="center"><a href="{{url('/admin/editarProducto/'.$prod->idProducto)}}" class="btn btn-primary btn-mini">Editar</a>
-                    <a href="{{url('/admin/eliminarProducto/'.$prod->idProducto)}}" class="btn btn-danger btn-mini delProd">Eliminar</a></td>
+                  <td class="center"><a href="{{url('/admin/editarProducto/'.$prod->idProducto)}}" class="btn btn-primary btn-mini" method="get">Editar</a>
+                  @if($prod->estado == 1)
+                    <a href="{{url('/admin/eliminarProducto/'.$prod->idProducto)}}" class="btn btn-danger btn-mini delProd">Inhabilitar</a></td>
+                  @else
+                    <a href="{{url('/admin/habilitarProducto/'.$prod->idProducto)}}" class="btn btn-danger btn-mini">habilitar</a></td>
+                  @endif
                 </tr>
                 @endforeach
               </tbody>
